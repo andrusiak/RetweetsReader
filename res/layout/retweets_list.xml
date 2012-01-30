@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,12 +24,30 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/btn_get_retweets"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:text="Get Retweets"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <RelativeLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btn_get_retweets"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:text="Get Retweets"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_centerInParent="true" />
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_get_retweets"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@android:id/list"

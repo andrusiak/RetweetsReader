@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
@@ -67,6 +68,16 @@ public class RetweetsListActivity extends ListActivity {
    
 	private class DownloadRetweetsTask extends AsyncTask<Object, Void, Void> {
 
+		public DownloadRetweetsTask() {
+			progressBar= (ProgressBar)findViewById(R.id.progressBar1);	
+	    }
+
+		private ProgressBar progressBar ;	
+	   
+	    protected void onPreExecute() {
+	    	progressBar.setVisibility(View.VISIBLE);
+	    	}
+	   
 		@Override
 		protected Void doInBackground(Object... arg0) {
 			RetweetsReader retweetsReader=(RetweetsReader) arg0[0];
@@ -84,8 +95,10 @@ public class RetweetsListActivity extends ListActivity {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			updateList();
+			if (progressBar.isShown()) { 
+				progressBar.setVisibility(View.GONE);
+			}
 		}
-
 	}
 
 	@Override
@@ -114,16 +127,7 @@ public class RetweetsListActivity extends ListActivity {
 			retweetsReader.setUsername(username);
 			if(retweetsReader.isAuthenticated())
 			{	
-				DownloadRetweetsTask drTask= new DownloadRetweetsTask();
-				drTask.execute(retweetsReader ,mySQLiteAdapter);
-				/*retweetsReader.Execute();
-				mySQLiteAdapter.deleteAll();
-				for(Retweet retweet:retweetsReader.getList()){
-					mySQLiteAdapter.insert(retweet);
-				}*/
-								
-				//updateList();
-			
+				new DownloadRetweetsTask().execute(retweetsReader ,mySQLiteAdapter);
 			} else	{
 				Intent i = new Intent(getApplicationContext(), PrepareRequestTokenActivity.class);
 				startActivity(i);
@@ -175,8 +179,8 @@ public class RetweetsListActivity extends ListActivity {
 	 }
 
 	 public void updateList(){
-	  cursor.requery();
-	   }
+		 cursor.requery();
+	 }
 	 
 }
 
