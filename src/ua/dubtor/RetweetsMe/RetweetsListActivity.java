@@ -128,6 +128,7 @@ public class RetweetsListActivity extends ListActivity {
 			if(retweetsReader.isAuthenticated())
 			{	
 				new DownloadRetweetsTask().execute(retweetsReader ,mySQLiteAdapter);
+				
 			} else	{
 				Intent i = new Intent(getApplicationContext(), PrepareRequestTokenActivity.class);
 				startActivity(i);

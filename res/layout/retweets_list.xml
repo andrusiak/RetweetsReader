@@ -21,7 +21,6 @@
         android:gravity="center"
         android:text="@string/username_default" >
 
-        <requestFocus />
     </EditText>
 
     <RelativeLayout
