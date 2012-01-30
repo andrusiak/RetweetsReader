@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="3dp">
+
+    <TextView
+        android:id="@+id/retweet_author_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/retweet_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/retweet_author_name"
+        android:textColor="#CCFFFF"
+        android:paddingTop="3dp" 
+        android:text="TextView" />
+	
+    <TextView
+        android:id="@+id/retweet_created_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textColor="#ADDFFF"
+        android:paddingRight="10dp" 
+        android:paddingTop="3dp" />
+    
+</RelativeLayout>

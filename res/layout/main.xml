@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/login_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_tweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tweet" />
+
+    <Button
+        android:id="@+id/btn_clear_credentials"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear Credentials" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/username_field___"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:text="@string/username_default" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btn_get_retweets__"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="Get Retweets"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+   
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+             <TextView
+        android:id="@+id/retweets_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </ScrollView>
+   
+</LinearLayout>
