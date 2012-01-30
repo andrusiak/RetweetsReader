@@ -30,7 +30,7 @@ public class RetweetsReader /*extends AsyncTask<> */{
 	 public static final String REQUEST_URL = "https://api.twitter.com/1/statuses/retweeted_by_user.json?screen_name=";
 	 public static final String VERIFY_CREDENTIAL= "http://api.twitter.com/1/account/verify_credentials.json";
 
-	 public static final int TWEETS_COUNT=10;
+	 public static final int TWEETS_COUNT=50;
 	 public static int page = 1;
 
 	 

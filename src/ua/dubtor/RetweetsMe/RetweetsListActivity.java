@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -64,6 +65,28 @@ public class RetweetsListActivity extends ListActivity {
     });
 	}
    
+	private class DownloadRetweetsTask extends AsyncTask<Object, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Object... arg0) {
+			RetweetsReader retweetsReader=(RetweetsReader) arg0[0];
+			SQLiteAdapter mySQLiteAdapter = (SQLiteAdapter) arg0[1];
+			
+			retweetsReader.Execute();
+			mySQLiteAdapter.deleteAll();
+			for(Retweet retweet:retweetsReader.getList()){
+				mySQLiteAdapter.insert(retweet);
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			updateList();
+		}
+
+	}
 
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -91,13 +114,15 @@ public class RetweetsListActivity extends ListActivity {
 			retweetsReader.setUsername(username);
 			if(retweetsReader.isAuthenticated())
 			{	
-				retweetsReader.Execute();
+				DownloadRetweetsTask drTask= new DownloadRetweetsTask();
+				drTask.execute(retweetsReader ,mySQLiteAdapter);
+				/*retweetsReader.Execute();
 				mySQLiteAdapter.deleteAll();
 				for(Retweet retweet:retweetsReader.getList()){
 					mySQLiteAdapter.insert(retweet);
-				}
-				
-				updateList();
+				}*/
+								
+				//updateList();
 			
 			} else	{
 				Intent i = new Intent(getApplicationContext(), PrepareRequestTokenActivity.class);
@@ -152,5 +177,6 @@ public class RetweetsListActivity extends ListActivity {
 	 public void updateList(){
 	  cursor.requery();
 	   }
+	 
 }
 
