@@ -18,7 +18,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 public class RetweetsReader /*extends AsyncTask<> */{
 	
@@ -32,6 +35,9 @@ public class RetweetsReader /*extends AsyncTask<> */{
 
 	 public static final int TWEETS_COUNT=50;
 	 public static int page = 1;
+	 
+	 boolean auth_status;
+
 
 	 
      public RetweetsReader()
@@ -81,8 +87,8 @@ public class RetweetsReader /*extends AsyncTask<> */{
 	    }	 
 	
 	 public boolean isAuthenticated() {
-		 boolean status= false;
-		 try{
+		auth_status=false;
+		try{
 		 	// create an HTTP request to a protected resource
 	        HttpGet request = new HttpGet(VERIFY_CREDENTIAL);
 
@@ -94,15 +100,61 @@ public class RetweetsReader /*extends AsyncTask<> */{
 	        HttpResponse response = httpClient.execute(request);
 
 			if(response.getStatusLine().getStatusCode()==HttpURLConnection.HTTP_OK) 
-				status=true;
+				auth_status=true;
 		  	} catch (Exception e) {
 		 		e.printStackTrace();
 		 	}
-		  	
 		 	Log.i("Verification Status", "Done!");
 
-	 	return status;
+		//CheckAuthenticationTask authTask =new CheckAuthenticationTask();
+		//authTask.execute();
+		return auth_status;
 	}
+	 
+	 private class CheckAuthenticationTask extends AsyncTask<Void, Void,Void> {
+
+			/*public CheckAuthenticationTask() {
+				progressBar= (ProgressBar)findViewById(R.id.progressBar1);	
+		    }
+
+			private ProgressBar progressBar ;	
+		   
+		    protected void onPreExecute() {
+		    	progressBar.setVisibility(View.VISIBLE);
+		    	}
+		  
+			@Override
+			protected void onPostExecute(Boolean result) {
+				super.onPostExecute(result);
+			
+				if (progressBar.isShown()) { 
+					progressBar.setVisibility(View.GONE);
+				}
+			}
+*/
+			@Override
+			protected Void doInBackground(Void... params) {
+				try{
+				 	// create an HTTP request to a protected resource
+			        HttpGet request = new HttpGet(VERIFY_CREDENTIAL);
+
+			        // sign the request
+			        consumer.sign(request);
+			        
+			        // send the request
+			        HttpClient httpClient = new DefaultHttpClient();
+			        HttpResponse response = httpClient.execute(request);
+
+					if(response.getStatusLine().getStatusCode()==HttpURLConnection.HTTP_OK) 
+						auth_status=true;
+				  	} catch (Exception e) {
+				 		e.printStackTrace();
+				 	}
+				 	Log.i("Verification Status", "Done!");
+
+				return null;
+			}
+		}
 
 	public void buildList(JSONArray retweetsArray){
 		  try{
